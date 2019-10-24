@@ -10,6 +10,7 @@ namespace LRN_CS
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Dupa");
         }
     }
 }
