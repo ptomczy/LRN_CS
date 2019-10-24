@@ -1,13 +1,17 @@
-﻿using System;
+﻿using LRN_CS.Data;
+using LRN_CS.Worker;
+using LRN_CS.Workers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LRN_CS
 {
     class Program
     {
+        private static readonly FileReader _fileReader = new FileReader();
+        private static readonly WordMatcher _wordMatcher = new WordMatcher();
+        private const string wordListFileName = "wordlist.txt";
         static void Main(string[] args)
         {
             bool continueWordUnscramble = true;
@@ -54,7 +58,7 @@ namespace LRN_CS
         {
             var manualInput = Console.ReadLine() ?? string.Empty;
             string[] scrambledWords = manualInput.Split(',');
-            DisplayMatchedUnscrambledWords();
+            DisplayMatchedUnscrambledWords(scrambledWords);
         }
 
         private static void ExecuteScrambledWordsInFileScenario()
@@ -67,6 +71,18 @@ namespace LRN_CS
             string[] wordList = _fileReader.Read(wordListFileName);
 
             List<MatchedWord> matchedWords = _wordMatcher.Match(scrambledWords, wordList);
+
+            if (matchedWords.Any())
+            {
+                foreach(var matchedWord in matchedWords)
+                {
+                    Console.Write("Match found for {0}: {1}", matchedWord.ScrambledWord, matchedWord.Word);
+                }
+            } 
+            else
+            {
+                Console.WriteLine("No matches have been found.");
+            }
         }
 
 
