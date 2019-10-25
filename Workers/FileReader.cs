@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace LRN_CS.Worker
 {
@@ -10,7 +7,18 @@ namespace LRN_CS.Worker
     {
         internal string[] Read(string fileName)
         {
-            throw new NotImplementedException();
+            string[] fileContent;
+            try
+            {
+                fileContent = File.ReadAllLines(fileName);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+
+            return fileContent;
         }
     }
 }
